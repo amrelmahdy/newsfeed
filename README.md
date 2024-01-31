@@ -45,3 +45,9 @@ While implementing your solution **please take care of the following requirement
 ---
 
 :scroll: **END** 
+
+
+108ccbfd666941f280c38c9bb316589f
+
+
+https://newsapi.org/v2/everything?q=tesla&from=2023-12-31&sortBy=publishedAt&apiKey=108ccbfd666941f280c38c9bb316589f
