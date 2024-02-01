@@ -7,6 +7,7 @@ import SettingsScreen from '../../screens/Settings/Settings';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AppearanceScreen from '../../screens/Settings/Appearance/Appearance';
 import LanguageScreen from '../../screens/Settings/Language/Language';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Tab = createBottomTabNavigator();
 
@@ -34,7 +35,23 @@ export function SettingsStack() {
 
 function BottomTabNavigation() {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName: string = '';
+          switch (route.name) {
+            case 'News':
+              iconName = focused ? 'home' : 'home'
+              break
+            case 'Settings':
+              iconName = focused ? 'cog' : 'cog'
+              break  
+          }
+          return <Icon color={focused ? '#09B6CC' : '#333'} name={iconName} size={30} />
+        },
+      })}
+    >
       <Tab.Screen name="News" component={NewsStack} />
       <Tab.Screen name="Settings" component={SettingsStack} />
     </Tab.Navigator>
