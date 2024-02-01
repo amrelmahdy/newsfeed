@@ -20,18 +20,18 @@ function NewsScreen({ navigation }) {
       const news = await getAllNews(searcKeyword);
       setNewsItems(news);
     } catch (error) {
-      // Alert.alert('Whoops',
-      //   "Unable to fetch data please try again later",
-      //   [
-      //     {
-      //       text: 'Try again ?!',
-      //       onPress: () => fetchData(searcKeyword),
-      //     }
-      //   ],
-      //   { cancelable: true }
-      // )
+      Alert.alert('Whoops',
+        "Unable to fetch data please try again later",
+        [
+          {
+            text: 'Try again ?!',
+            onPress: () => fetchData(searcKeyword),
+          }
+        ],
+        { cancelable: true }
+      )
     } finally {
-      setRefreshing(false); // Stop refreshing indicator
+      setRefreshing(false); 
     }
   }
 
