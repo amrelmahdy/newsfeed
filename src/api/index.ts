@@ -23,15 +23,10 @@ interface NewsApiResponse {
     articles: NewsItem[];
 }
 
-export const getAllNews = async (language: string = 'en'): Promise<NewsItem[]> => {
-    try {
-        const response: AxiosResponse<NewsApiResponse> = await axios.get(
-            `${BASE_URL}?category=business&q=&from=2023-12-31&sortBy=publishedAt&language=${language}&apiKey=${API_KEY}`
-        );
-        return response.data.articles;
-    } catch (error) {
-        console.error("Error fetching news:", error);
-        return [];
-    }
+export const getAllNews = async (searcKeyword: string | undefined = '', language: string = 'en'): Promise<NewsItem[]> => {
+    const response: AxiosResponse<NewsApiResponse> = await axios.get(
+        `${BASE_URL}?category=business&q=${searcKeyword}&from=2023-12-31&sortBy=publishedAt&language=${language}&apiKey=${API_KEY}`
+    );
+    return response.data.articles;
 };
 

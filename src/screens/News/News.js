@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { FlatList, View, Text, Image, TouchableOpacity, ActivityIndicator, RefreshControl, StyleSheet } from 'react-native';
+import { FlatList, View, Text, Image, TouchableOpacity, ActivityIndicator, RefreshControl, StyleSheet, TextInput } from 'react-native';
 import { getAllNews } from '../../api';
 import styles from './styles'
 
@@ -7,16 +7,18 @@ function NewsScreen({ navigation }) {
 
   const [newsItems, setNewsItems] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
 
   useEffect(() => {
     fetchData();
   }, [])
 
 
-  const fetchData = async () => {
+  const fetchData = async (searcKeyword) => {
     try {
       setRefreshing(true); // Start refreshing indicator
-      const news = await getAllNews();
+      const news = await getAllNews(searcKeyword);
       setNewsItems(news);
     } catch (error) {
       // Handle error
@@ -32,15 +34,40 @@ function NewsScreen({ navigation }) {
 
   const handlePress = (item) => {
     const { title, description, content, urlToImage } = item;
-    navigation.navigate('NewsDetails', {
+    navigation.navigate('NewsDetailsScreen', {
       title, description, content, urlToImage
     });
   };
 
+
+  const handleSearch = async () => {
+    try {
+      setRefreshing(true);
+      // Perform search using the searchQuery
+      await fetchData(searchQuery);
+
+    } catch (error) {
+      console.error('Error searching news:', error);
+    } finally {
+      setRefreshing(false);
+    }
+  }
+
   return (
     <>
+      <View style={styles.searchContainer}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search articles..."
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          onChange={handleSearch}
+        />
+      </View>
+
       <FlatList
         data={newsItems}
+
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => handlePress(item)}>
             <View style={styles.card}>

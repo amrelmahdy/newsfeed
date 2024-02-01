@@ -32,5 +32,18 @@ export default  StyleSheet.create({
     description: {
       color: '#666',
     },
+    searchContainer: {
+        padding: 10,
+        backgroundColor: '#fff',
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc',
+      },
+      searchInput: {
+        height: 40,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 5,
+        paddingHorizontal: 10,
+      },
   });
   
