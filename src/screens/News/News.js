@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { FlatList, View, Text, Image, TouchableOpacity, RefreshControl } from 'react-native';
+import { FlatList, View, Text, Image, TouchableOpacity, ActivityIndicator, RefreshControl, StyleSheet } from 'react-native';
 import { getAllNews } from '../../api';
 
-function NewScreen() {
+function NewsScreen() {
 
   const [newsItems, setNewsItems] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
@@ -29,7 +29,7 @@ function NewScreen() {
   }, []);
 
   const handlePress = (url: string) => {
-   
+    // Handle press action, e.g., navigate to full article
   }
 
   return (
@@ -38,10 +38,12 @@ function NewScreen() {
         data={newsItems}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => handlePress(item.url)}>
-            <View style={{ padding: 10, borderBottomWidth: 1, borderBottomColor: '#ccc' }}>
-              <Text style={{ fontWeight: 'bold' }}>{item.title}</Text>
-              <Text>{item.description}</Text>
-              <Image source={{ uri: item.urlToImage }} style={{ width: '100%', height: 200, marginTop: 10 }} />
+            <View style={styles.card}>
+              <Image source={{ uri: item.urlToImage }} style={styles.image} />
+              <View style={styles.content}>
+                <Text style={styles.title}>{item.title}</Text>
+                <Text style={styles.description}>{item.description}</Text>
+              </View>
             </View>
           </TouchableOpacity>
         )}
@@ -50,6 +52,8 @@ function NewScreen() {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={handleRefresh}
+            colors={['#9Bd35A', '#689F38']}
+            tintColor="#689F38"
           />
         }
       />
@@ -57,4 +61,38 @@ function NewScreen() {
   );
 }
 
-export default NewScreen;
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    marginBottom: 10,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  image: {
+    width: '100%',
+    height: 200, // Adjust this value as needed
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+  },
+  content: {
+    padding: 10,
+  },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 16,
+    marginBottom: 5,
+  },
+  description: {
+    color: '#666',
+  },
+});
+
+export default NewsScreen;
