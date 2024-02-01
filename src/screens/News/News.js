@@ -3,7 +3,7 @@ import { FlatList, View, Text, Image, TouchableOpacity, ActivityIndicator, Refre
 import { getAllNews } from '../../api';
 import styles from './styles'
 
-function NewsScreen() {
+function NewsScreen({ navigation }) {
 
   const [newsItems, setNewsItems] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
@@ -29,16 +29,20 @@ function NewsScreen() {
     fetchData();
   }, []);
 
-  const handlePress = (url: string) => {
-    // Handle press action, e.g., navigate to full article
-  }
+
+  const handlePress = (item) => {
+    const { title, description, content, urlToImage } = item;
+    navigation.navigate('NewsDetails', {
+      title, description, content, urlToImage
+    });
+  };
 
   return (
     <>
       <FlatList
         data={newsItems}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => handlePress(item.url)}>
+          <TouchableOpacity onPress={() => handlePress(item)}>
             <View style={styles.card}>
               <Image source={{ uri: item.urlToImage }} style={styles.image} />
               <View style={styles.content}>
