@@ -5,6 +5,8 @@ import NewsScreen from '../../screens/News/News';
 import NewsDetailsScreen from '../../screens/NewsDetails/NewsDetails';
 import SettingsScreen from '../../screens/Settings/Settings';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AppearanceScreen from '../../screens/Settings/Appearance/Appearance';
+import LanguageScreen from '../../screens/Settings/Language/Language';
 
 const Tab = createBottomTabNavigator();
 
@@ -14,7 +16,7 @@ export function NewsStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="NewsScreen" options={{ title: 'News' }} component={NewsScreen} />
-      <Stack.Screen options={{ title: 'Article Details' }} name="NewsDetailsScreen" component={NewsDetailsScreen} />
+      <Stack.Screen name="NewsDetailsScreen" component={NewsDetailsScreen} options={{ title: 'Article Details' }} />
     </Stack.Navigator>
   );
 }
@@ -22,7 +24,9 @@ export function NewsStack() {
 export function SettingsStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
+      <Stack.Screen name="SettingsScreen" component={SettingsScreen} options={{ title: 'Settings' }} />
+      <Stack.Screen name="AppearanceScreen" component={AppearanceScreen} options={{ title: 'Appearance' }} />
+      <Stack.Screen name="LanguageScreen" component={LanguageScreen} options={{ title: 'Language' }} />
     </Stack.Navigator>
   );
 }

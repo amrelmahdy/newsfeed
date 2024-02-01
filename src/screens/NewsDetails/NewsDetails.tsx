@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../App';
+import { RootStackParamList } from '../../navigation';
 
 
 

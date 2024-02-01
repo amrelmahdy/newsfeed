@@ -6,6 +6,8 @@ export type RootStackParamList = {
     NewsScreen: undefined;
     SettingsScreen: undefined;
     Settings: undefined
+    AppearanceScreen: undefined,
+    LanguageScreen: undefined,
     NewsDetailsScreen: {
         urlToImage: string,
         title: string,
