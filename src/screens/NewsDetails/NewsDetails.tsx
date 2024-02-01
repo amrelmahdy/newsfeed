@@ -5,7 +5,7 @@ import { RootStackParamList } from '../../App';
 
 
 
-type NewsDetailsScreenRouteProp = RouteProp<RootStackParamList, 'NewsDetails'>;
+type NewsDetailsScreenRouteProp = RouteProp<RootStackParamList, 'NewsDetailsScreen'>;
 
 interface NewsDetailsProps {
   route: NewsDetailsScreenRouteProp;
