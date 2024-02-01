@@ -1,13 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { FlatList, View, Text, Image, TouchableOpacity, ActivityIndicator, RefreshControl, StyleSheet, TextInput } from 'react-native';
+import { FlatList, View, Text, Image, TouchableOpacity, ActivityIndicator, RefreshControl, StyleSheet, TextInput, Alert } from 'react-native';
 import { getAllNews } from '../../api';
 import styles from './styles'
 
 function NewsScreen({ navigation }) {
-
   const [newsItems, setNewsItems] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
 
   useEffect(() => {
@@ -17,11 +16,20 @@ function NewsScreen({ navigation }) {
 
   const fetchData = async (searcKeyword) => {
     try {
-      setRefreshing(true); // Start refreshing indicator
+      setRefreshing(true);
       const news = await getAllNews(searcKeyword);
       setNewsItems(news);
     } catch (error) {
-      // Handle error
+      Alert.alert('Whoops',
+        "Unable to fetch data please try again later",
+        [
+          {
+            text: 'Try again ?!',
+            onPress: () => fetchData(searcKeyword),
+          }
+        ],
+        { cancelable: true }
+      )
     } finally {
       setRefreshing(false); // Stop refreshing indicator
     }
@@ -43,9 +51,7 @@ function NewsScreen({ navigation }) {
   const handleSearch = async () => {
     try {
       setRefreshing(true);
-      // Perform search using the searchQuery
       await fetchData(searchQuery);
-
     } catch (error) {
       console.error('Error searching news:', error);
     } finally {
