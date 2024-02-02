@@ -1,9 +1,13 @@
 import React from 'react';
 import Navigation from './navigation';
 
+import { ThemeProvider } from './theme/ThemeContext';
+
 function App() {
   return (
-    <Navigation />
+    <ThemeProvider>
+      <Navigation />
+    </ThemeProvider>
   );
 }
 
