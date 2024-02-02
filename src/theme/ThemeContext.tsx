@@ -44,12 +44,14 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
 
   const toggleTheme = (newTheme: string) => {
     setTheme(newTheme);
-    save('Theme', newTheme); // Save selected theme to storage
+    save('Theme', newTheme); 
+    save('ThemeSystemDefault', false);
   };
 
   const useSystemTheme = () => {
     setTheme(colorScheme);
     save('Theme', colorScheme);
+    save('ThemeSystemDefault', true);
   };
 
   return (
