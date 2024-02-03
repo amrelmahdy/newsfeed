@@ -1,6 +1,16 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import React, { SetStateAction, useCallback, useContext, useEffect, useState } from 'react';
+
+import {
+    NavigationContainer, DarkTheme,
+    DefaultTheme,
+} from '@react-navigation/native';
 import BottomTabNavigation from './BottomTabNavigation/BottomTabNavigation';
+import { useColorScheme } from 'react-native';
+import { get } from '../storage';
+import { Appearance } from 'react-native';
+import ThemeContext from '../theme/ThemeContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ThemeKey, themes } from '../theme/colors';
 
 export type RootStackParamList = {
     NewsScreen: undefined;
@@ -17,10 +27,12 @@ export type RootStackParamList = {
 };
 
 function Navigation() {
+    const { theme } = useContext(ThemeContext);
     return (
-        <NavigationContainer>
+        <NavigationContainer theme={themes[theme]}>
             <BottomTabNavigation />
         </NavigationContainer>
+
     );
 }
 
