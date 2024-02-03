@@ -49,9 +49,9 @@ enum ThemeKey {
 const commonColor: CommonColors = {
   commonWhite: '#FFFFFF',
   commonBlack: '#000000',
-  activeColor: '#DE5E69',
-  deactiveColor: '#DE5E6950',
-  boxActiveColor: '#DE5E6940',
+  activeColor: '#FFF',
+  deactiveColor: '#09B6CC',
+  boxActiveColor: '#46a2ae',
 };
 
 const themes: Theme = {
