@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { FlatList, View, Text, Image, TouchableOpacity, ActivityIndicator, RefreshControl, StyleSheet, TextInput, Alert } from 'react-native';
+import { FlatList, View, Text, Image, TouchableOpacity, ActivityIndicator, RefreshControl, StyleSheet, TextInput, Alert, TouchableWithoutFeedback } from 'react-native';
 import { getAllNews } from '../../api';
 import { useTheme } from '@react-navigation/native';
 
@@ -44,9 +44,8 @@ function NewsScreen({ navigation }) {
 
 
   const handlePress = (item) => {
-    const { title, description, content, urlToImage } = item;
     navigation.navigate('NewsDetailsScreen', {
-      title, description, content, urlToImage
+      ...item
     });
   };
 
@@ -77,17 +76,15 @@ function NewsScreen({ navigation }) {
 
       <FlatList
         data={newsItems}
-
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => handlePress(item)}>
+          <TouchableWithoutFeedback onPress={() => handlePress(item)}>
             <View style={styles.card}>
-              <Image source={{ uri: item.urlToImage }} style={styles.image} />
+              {item.urlToImage && <Image source={{ uri: item.urlToImage }} style={styles.image} />}
               <View style={styles.content}>
                 <Text style={styles.title}>{item.title}</Text>
-                <Text style={styles.description}>{item.description}</Text>
               </View>
             </View>
-          </TouchableOpacity>
+          </TouchableWithoutFeedback>
         )}
         keyExtractor={(item) => item.url}
         refreshControl={
@@ -111,6 +108,8 @@ const styling = colors => StyleSheet.create({
     backgroundColor: colors.card,
     borderRadius: 8,
     marginBottom: 10,
+    marginVertical: 10,
+    marginHorizontal: 16,
     overflow: 'hidden',
     shadowColor: '#000',
     shadowOffset: {
@@ -128,7 +127,7 @@ const styling = colors => StyleSheet.create({
     borderTopRightRadius: 8,
   },
   content: {
-    padding: 10,
+    padding: 16,
   },
   title: {
     fontWeight: 'bold',
