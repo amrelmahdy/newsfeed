@@ -1,13 +1,16 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { FlatList, View, Text, Image, TouchableOpacity, ActivityIndicator, RefreshControl, StyleSheet, TextInput, Alert } from 'react-native';
 import { getAllNews } from '../../api';
-import styles from './styles'
+import { useTheme } from '@react-navigation/native';
 
 function NewsScreen({ navigation }) {
+  const colors = useTheme().colors
+
   const [newsItems, setNewsItems] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
+  const styles = styling(colors)
 
   useEffect(() => {
     fetchData();
@@ -31,7 +34,7 @@ function NewsScreen({ navigation }) {
         { cancelable: true }
       )
     } finally {
-      setRefreshing(false); 
+      setRefreshing(false);
     }
   }
 
@@ -65,6 +68,7 @@ function NewsScreen({ navigation }) {
         <TextInput
           style={styles.searchInput}
           placeholder="Search articles..."
+          placeholderTextColor={colors.lightTextColor}
           value={searchQuery}
           onChangeText={setSearchQuery}
           onChange={handleSearch}
@@ -100,3 +104,52 @@ function NewsScreen({ navigation }) {
 }
 
 export default NewsScreen;
+
+
+const styling = colors => StyleSheet.create({
+  card: {
+    backgroundColor: colors.card,
+    borderRadius: 8,
+    marginBottom: 10,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  image: {
+    width: '100%',
+    height: 200,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+  },
+  content: {
+    padding: 10,
+  },
+  title: {
+    fontWeight: 'bold',
+    color: colors.textColor,
+    fontSize: 16,
+    marginBottom: 5,
+  },
+  description: {
+    color: colors.textColor,
+  },
+  searchContainer: {
+    padding: 10,
+    backgroundColor: colors.card,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  searchInput: {
+    height: 40,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+  },
+});

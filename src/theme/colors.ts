@@ -60,6 +60,7 @@ const themes: Theme = {
     colors: {
       ...commonColor,
       ...DefaultTheme.colors,
+      primary: '#09B6CC',
       themeColor: '#FFFFFF',
       textColor: '#000000',
       icon: "#333",
@@ -73,10 +74,11 @@ const themes: Theme = {
     colors: {
       ...commonColor,
       ...DarkTheme.colors,
+      primary: '#09B6CC',
       themeColor: '#000000',
       textColor: '#FFFFFF',
       icon: "#09B6CC",
-      lightTextColor: '#000000',
+      lightTextColor: '#888',
       touchableColor: '#831a23',
       buttonColor: 'white',
     }
