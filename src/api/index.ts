@@ -25,7 +25,7 @@ interface NewsApiResponse {
 
 export const getAllNews = async (searcKeyword: string | undefined = '', language: string = 'en'): Promise<NewsItem[]> => {
     const response: AxiosResponse<NewsApiResponse> = await axios.get(
-        `${BASE_URL}?category=sport&q=${searcKeyword}&sortBy=publishedAt&language=${language}&apiKey=${API_KEY}`
+        `${BASE_URL}?q=${searcKeyword}&sortBy=publishedAt&language=${language}&apiKey=${API_KEY}`
     );
     return response.data.articles;
 };

@@ -86,7 +86,7 @@ function NewsScreen({ navigation }) {
             </View>
           </TouchableWithoutFeedback>
         )}
-        keyExtractor={(item) => item.url}
+        keyExtractor={(item, index) => item.url + index.toString()}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
@@ -142,11 +142,12 @@ const styling = colors => StyleSheet.create({
     padding: 10,
     backgroundColor: colors.card,
     borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    borderBottomColor:  colors.border,
   },
   searchInput: {
     height: 40,
     borderWidth: 1,
+    backgroundColor: colors.inputBackgroundColor,
     borderColor: colors.border,
     borderRadius: 5,
     paddingHorizontal: 10,

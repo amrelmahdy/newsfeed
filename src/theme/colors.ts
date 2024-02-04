@@ -35,6 +35,7 @@ export interface AppColors {
   activeColor: string;
   deactiveColor: string;
   boxActiveColor: string;
+  inputBackgroundColor: string
 };
 
 interface AppTheme {
@@ -68,6 +69,7 @@ const themes: Themes = {
       icon: "#333",
       lightTextColor: '#000000',
       touchableColor: '#DE5E69',
+      inputBackgroundColor: "#EEE",
       buttonColor: 'gray',
     }
   },
@@ -82,6 +84,7 @@ const themes: Themes = {
       icon: "#09B6CC",
       lightTextColor: '#888',
       touchableColor: '#831a23',
+      inputBackgroundColor: "#333",
       buttonColor: 'white',
     }
   },
