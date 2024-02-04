@@ -3,16 +3,16 @@ import { View, FlatList, Text, StyleSheet, TouchableOpacity } from 'react-native
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ThemeContext from '../../theme/ThemeContext';
 import { useTheme } from '@react-navigation/native';
-
+import { useTranslation } from 'react-i18next'
 
 const SettingsScreen = ({ navigation }) => {
   const colors = useTheme().colors
   const { theme, isSystemDefault } = useContext(ThemeContext);
-
+  const { t, i18n } = useTranslation()
 
   const data = [
     { screenName: 'AppearanceScreen', name: 'Appearance', icon: 'dark-mode', value: isSystemDefault ? 'System Default' : theme },
-    { screenName: 'LanguageScreen', name: 'Language', icon: 'language', value: 'en' },
+    { screenName: 'LanguageScreen', name: 'Language', icon: 'language', value: i18n.language },
   ];
 
   const renderItem = ({ item }) => (
@@ -23,7 +23,7 @@ const SettingsScreen = ({ navigation }) => {
         <Icon name={item.icon} size={20} style={{ marginRight: 10 }} color={colors.icon} />
         <Text style={{ color: colors.textColor }}>{item.name}</Text>
       </View>
-      <Text style={{ color: colors.textColor }}>{item.value}</Text>
+      <Text style={{ color: colors.textColor }}>{item.value} </Text>
     </TouchableOpacity>
   );
 
