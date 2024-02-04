@@ -17,7 +17,7 @@ const AppearanceScreen = () => {
   const getTheme = async () => {
     const theme = await get('Theme');
     const isSystemDefault = await get('ThemeSystemDefault');
-    if(isSystemDefault){
+    if (isSystemDefault) {
       setInitialValue(3);
       return;
     } else {
@@ -30,6 +30,9 @@ const AppearanceScreen = () => {
           return;
         case 'default':
           setInitialValue(3);
+          return;
+        default:
+          setInitialValue(1);
           return;
       }
     }
