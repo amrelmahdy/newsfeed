@@ -1,9 +1,9 @@
 import {
   DarkTheme,
-  DefaultTheme,
+  DefaultTheme
 } from '@react-navigation/native';
 
-interface Theme {
+interface Themes {
   [key: string]: AppTheme;
   light: AppTheme;
   dark: AppTheme;
@@ -17,27 +17,29 @@ interface CommonColors {
   boxActiveColor: string;
 }
 
+export interface AppColors {
+  primary: string;
+  background: string;
+  card: string;
+  text: string;
+  border: string;
+  notification: string;
+  themeColor: string;
+  textColor: string;
+  icon: string;
+  lightTextColor: string;
+  touchableColor: string;
+  buttonColor: string;
+  commonWhite: string;
+  commonBlack: string;
+  activeColor: string;
+  deactiveColor: string;
+  boxActiveColor: string;
+};
+
 interface AppTheme {
   dark: boolean;
-  colors: {
-    primary: string;
-    background: string;
-    card: string;
-    text: string;
-    border: string;
-    notification: string;
-    themeColor: string;
-    textColor: string;
-    icon: string;
-    lightTextColor: string;
-    touchableColor: string;
-    buttonColor: string;
-    commonWhite: string;
-    commonBlack: string;
-    activeColor: string;
-    deactiveColor: string;
-    boxActiveColor: string;
-  };
+  colors: AppColors
 }
 
 
@@ -54,7 +56,7 @@ const commonColor: CommonColors = {
   boxActiveColor: '#46a2ae',
 };
 
-const themes: Theme = {
+const themes: Themes = {
   light: {
     dark: false,
     colors: {
