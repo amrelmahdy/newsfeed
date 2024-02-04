@@ -15,6 +15,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AppearanceScreen from '../screens/Settings/Appearance/Appearance';
 import LanguageScreen from '../screens/Settings/Language/Language';
 import { useTranslation } from 'react-i18next';
+import NewsDetailsScreen from '../screens/NewsDetails/NewsDetails';
 
 export type RootStackParamList = {
     Home: undefined;
@@ -41,7 +42,8 @@ function Navigation() {
         <NavigationContainer theme={themes[theme]} >
             <Stack.Navigator screenOptions={{ headerShown: false, headerTintColor: themes[theme].colors.primary }}>
                 <Stack.Screen name="Home" component={BottomTabNavigation} />
-                <Stack.Screen name="AppearanceScreen" component={AppearanceScreen} options={{ title: t('appearance'), headerShown: true, headerBackTitleVisible: false}} />
+                <Stack.Screen name="NewsDetailsScreen" component={NewsDetailsScreen} options={{ title: 'Article Details', headerShown: true }} />
+                <Stack.Screen name="AppearanceScreen" component={AppearanceScreen} options={{ title: t('appearance'), headerShown: true, headerBackTitleVisible: false }} />
                 <Stack.Screen name="LanguageScreen" component={LanguageScreen} options={{ title: t("lang"), headerShown: true, headerBackTitleVisible: false }} />
             </Stack.Navigator>
         </NavigationContainer>
