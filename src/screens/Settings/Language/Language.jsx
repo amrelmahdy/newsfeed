@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { get, save } from '../../../storage';
-import RadioButtonRN from 'radio-buttons-react-native';
 import ThemeContext from '../../../theme/ThemeContext';
 import { useTheme } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next'
+import RadioButton from '../../../components/RadioButton/RadioButton';
 
 
 const LanguageScreen = () => {
@@ -19,63 +19,49 @@ const LanguageScreen = () => {
   const getLanguage = async () => {
     const lang = await get('Language');
     i18n.changeLanguage(lang);
-    const savedLang = data.find(la => la.value == lang) || 1;
-    setInitialValue(savedLang.id);
+    const savedLang = data.find(la => la.key == lang);
+    setInitialValue(savedLang.key);
   }
 
 
   const data = [
     {
-      id: 1,
-      label: 'English',
-      value: 'en',
+      text: 'English',
+      key: 'en',
     },
     {
-      id: 2,
-      label: 'French',
-      value: 'fr',
+      text: 'French',
+      key: 'fr',
     },
     {
-      id: 3,
-      label: 'Deutsch',
-      value: 'de',
+      text: 'Deutsch',
+      key: 'de',
     },
     {
-      id: 4,
-      label: 'Italian',
-      value: 'it',
+      text: 'Italian',
+      key: 'it',
     },
     {
-      id: 5,
-      label: 'Spanish',
-      value: 'es',
+      text: 'Spanish',
+      key: 'es',
     }
   ]
 
-  const themeOperations = lang => {
+  const handleChangeLangue = lang => {
     i18n.changeLanguage(lang);
-    // const language = data.find(la => la.value == lang) || 1;
-    // setInitialValue(language.id)
     save("Language", lang)
   };
 
-
-  console.log(initialValue)
 
   const styles = styling(colors);
 
 
   return (
     <View style={styles.container}>
-      <RadioButtonRN
+      <RadioButton
+        onSelectButton={handleChangeLangue}
+        defaultValue={initialValue}
         data={data}
-        selectedBtn={e => themeOperations(e?.value)}
-        initial={initialValue}
-        activeColor={colors.activeColor}
-        deactiveColor={colors.deactiveColor}
-        boxActiveBgColor={colors.boxActiveColor}
-        boxDeactiveBgColor={colors.themeColor}
-        textColor={colors.textColor}
       />
     </View>
   );
@@ -87,8 +73,8 @@ const styling = colors =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: colors.themeColor,
-      paddingHorizontal: 20,
+      marginHorizontal: 10,
+      marginVertical: 10
     },
     textStyle: {
       color: colors.textColor,
