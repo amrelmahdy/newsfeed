@@ -2,10 +2,11 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { FlatList, View, Text, Image, TouchableOpacity, ActivityIndicator, RefreshControl, StyleSheet, TextInput, Alert, TouchableWithoutFeedback } from 'react-native';
 import { getAllNews } from '../../api';
 import { useTheme } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next'
 
 function NewsScreen({ navigation }) {
-  const colors = useTheme().colors
-
+  const colors = useTheme().colors;
+  const { t, i18n } = useTranslation();
   const [newsItems, setNewsItems] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -20,19 +21,19 @@ function NewsScreen({ navigation }) {
   const fetchData = async (searcKeyword) => {
     try {
       setRefreshing(true);
-      const news = await getAllNews(searcKeyword);
+      const news = await getAllNews(searcKeyword, i18n.language);
       setNewsItems(news);
     } catch (error) {
-      Alert.alert('Whoops',
-        "Unable to fetch data please try again later",
-        [
-          {
-            text: 'Try again ?!',
-            onPress: () => fetchData(searcKeyword),
-          }
-        ],
-        { cancelable: true }
-      )
+      // Alert.alert('Whoops',
+      //   "Unable to fetch data please try again later",
+      //   [
+      //     {
+      //       text: 'Try again ?!',
+      //       onPress: () => fetchData(searcKeyword),
+      //     }
+      //   ],
+      //   { cancelable: true }
+      // )
     } finally {
       setRefreshing(false);
     }
@@ -66,13 +67,14 @@ function NewsScreen({ navigation }) {
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchInput}
-          placeholder="Search articles..."
+          placeholder={t("search_input_placeholder")}
           placeholderTextColor={colors.lightTextColor}
           value={searchQuery}
           onChangeText={setSearchQuery}
           onChange={handleSearch}
         />
       </View>
+
 
       <FlatList
         data={newsItems}
@@ -87,6 +89,9 @@ function NewsScreen({ navigation }) {
           </TouchableWithoutFeedback>
         )}
         keyExtractor={(item, index) => item.url + index.toString()}
+        // ListEmptyComponent={() => <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: 20 }}>
+        //   { !refreshing && <Text>There is now items to show</Text>  }
+        // </View>}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
@@ -142,7 +147,7 @@ const styling = colors => StyleSheet.create({
     padding: 10,
     backgroundColor: colors.card,
     borderBottomWidth: 1,
-    borderBottomColor:  colors.border,
+    borderBottomColor: colors.border,
   },
   searchInput: {
     height: 40,
