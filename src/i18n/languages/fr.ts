@@ -3,6 +3,7 @@ export default {
         lang: "Langue",
         settings: "Paramètres",
         news: "Actualités",
-        appearance: "Apparence"
+        appearance: "Apparence",
+        search_input_placeholder: "Rechercher un article..."
     }
 }

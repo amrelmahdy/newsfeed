@@ -3,6 +3,10 @@ export default {
         lang: "Idioma",
         settings: "Configuración",
         news: "Noticias",
-        appearance: "Apariencia"
+        appearance: "Apariencia",
+        search_input_placeholder: "Buscar un artículo..."
+
     }
 }
+
+
