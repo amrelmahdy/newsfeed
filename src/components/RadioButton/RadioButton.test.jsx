@@ -13,7 +13,6 @@ describe('RadioButton Component', () => {
 
   it('renders radio buttons with provided data', () => {
     const { getByText, debug } = render(<RadioButton data={data} defaultValue='option1' />);
-    debug()
     data.forEach(option => {
       expect(getByText(option.text)).toBeTruthy();
     });
