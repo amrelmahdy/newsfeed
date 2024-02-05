@@ -44,7 +44,7 @@ function Navigation() {
         <NavigationContainer theme={themes[theme]} >
             <Stack.Navigator screenOptions={{ headerShown: false, headerTintColor: themes[theme].colors.primary }}>
                 <Stack.Screen name="Home" component={BottomTabNavigation} />
-                <Stack.Screen name="NewsDetailsScreen" component={NewsDetailsScreen} options={{ title: 'Article Details', headerShown: true }} />
+                <Stack.Screen name="NewsDetailsScreen" component={NewsDetailsScreen} options={{ title: t("article_details"), headerShown: true }} />
                 <Stack.Screen name="AppearanceScreen" component={AppearanceScreen} options={{ title: t('appearance'), headerShown: true, headerBackTitleVisible: false }} />
                 <Stack.Screen name="LanguageScreen" component={LanguageScreen} options={{ title: t("lang"), headerShown: true, headerBackTitleVisible: false }} />
             </Stack.Navigator>

@@ -4,7 +4,6 @@ import RadioButton from './RadioButton';
 import { act } from 'react-test-renderer';
 
 describe('RadioButton Component', () => {
-
   const data = [
     { key: 'option1', text: 'Option 1' },
     { key: 'option2', text: 'Option 2' },

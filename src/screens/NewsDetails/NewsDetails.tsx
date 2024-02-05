@@ -40,10 +40,12 @@ const styling = (colors: AppColors) => StyleSheet.create({
   },
   metaKey: {
     fontSize: 11,
+    color: colors.lightTextColor,
   },
   metaValue: {
     fontSize: 11,
-    fontWeight: '700'
+    fontWeight: '700',
+    color: colors.lightTextColor
   },
   image: {
     width: '100%',
