@@ -28,7 +28,9 @@ export type RootStackParamList = {
         urlToImage: string,
         title: string,
         description: string,
-        content: string
+        content: string,
+        publishedAt: string,
+        author: string
     };
 };
 
