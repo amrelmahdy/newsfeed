@@ -1,32 +1,22 @@
 import axios, { AxiosResponse } from "axios";
+import { NewsItem } from "../types";
 
-const BASE_URL = "https://newsapi.org/v2/top-headlines";
-const API_KEY = "108ccbfd666941f280c38c9bb316589f";
+const BASE_URL = "https://newsapi.org/v2/everything";
+const API_KEY = "024a62a3eb3d4e7ea73167ebe07d4fa9";
 
-interface NewsItem {
-    source: {
-        id: string | null;
-        name: string;
-    };
-    author: string;
-    title: string;
-    description: string;
-    url: string;
-    urlToImage: string | null;
-    publishedAt: string;
-    content: string;
-}
 
-interface NewsApiResponse {
+export interface NewsApiResponse {
     status: string;
     totalResults: number;
     articles: NewsItem[];
 }
 
-export const getAllNews = async (searcKeyword: string | undefined = '', language: string = 'en'): Promise<NewsItem[]> => {
+export const getAllNews = async (searcKeyword: string | undefined = 'apple', language: string = 'en'): Promise<NewsItem[]> => {
     const response: AxiosResponse<NewsApiResponse> = await axios.get(
-        `${BASE_URL}?q=${searcKeyword}&sortBy=publishedAt&language=${language}&apiKey=${API_KEY}`
+      `${BASE_URL}?apiKey=${API_KEY}&language=${language}&sortBy=publishedAt&q=${searcKeyword}&searchIn=title`  
+    //`${BASE_URL}?q=${searcKeyword}&sortBy=popularity&language=${language}&apiKey=${API_KEY}`
     );
+    console.log("res", response.data.articles, language)
     return response.data.articles;
 };
 

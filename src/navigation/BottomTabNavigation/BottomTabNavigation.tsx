@@ -26,6 +26,7 @@ function BottomTabNavigation() {
         name='NewsScreen'
         component={NewsScreen}
         options={{
+          unmountOnBlur: true,
           title: t("news"),
           tabBarIcon: ({ color, size }) => (
             <Icon name='newspaper-outline' size={size} color={color} />

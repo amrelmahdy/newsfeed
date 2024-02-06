@@ -18,21 +18,28 @@ function NewsScreen({ navigation }: BottomTabScreenProps<RootStackParamList, 'Ne
 
 
   useEffect(() => {
-    //fetchData();
-  }, [])
+    fetchData(searchQuery);
+  }, [searchQuery]);
+
 
 
   const fetchData = async (searcKeyword?: string): Promise<void> => {
+    const search = searcKeyword !== "" ? searcKeyword : 'apple';
     try {
       setRefreshing(true);
-      const news: NewsItem[] = await getAllNews(searcKeyword, i18n.language);
+      const news: NewsItem[] = await getAllNews(search, i18n.language);
       setNewsItems(news);
     } catch (error) {
-      Alert.alert('Whoops', "Unable to fetch data please try again later")
+      //Alert.alert('Whoops', "Unable to fetch data please try again later")
     } finally {
       setRefreshing(false);
     }
-  }
+  };
+
+
+  const handleSearchChange = (search: string) => {
+    setSearchQuery(search);
+  };
 
   const handleRefresh = useCallback(() => {
     fetchData();
@@ -46,16 +53,7 @@ function NewsScreen({ navigation }: BottomTabScreenProps<RootStackParamList, 'Ne
   };
 
 
-  const handleSearch = async () => {
-    try {
-      setRefreshing(true);
-      await fetchData(searchQuery);
-    } catch (error) {
-      console.error('Error searching news:', error);
-    } finally {
-      setRefreshing(false);
-    }
-  }
+
 
   return (
     <>
@@ -65,8 +63,8 @@ function NewsScreen({ navigation }: BottomTabScreenProps<RootStackParamList, 'Ne
           placeholder={t("search_input_placeholder")}
           placeholderTextColor={colors.lightTextColor}
           value={searchQuery}
-          onChangeText={setSearchQuery}
-          onChange={handleSearch}
+          onChangeText={handleSearchChange}
+        // onChange={handleSearch}
         />
       </View>
 
