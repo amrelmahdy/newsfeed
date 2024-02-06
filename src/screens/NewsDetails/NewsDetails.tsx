@@ -1,17 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
-import { RouteProp, useTheme } from '@react-navigation/native';
-import { RootStackParamList } from '../../navigation';
+import { useTheme } from '@react-navigation/native';
 import { AppColors } from '../../theme/colors';
+import { RootStackParamList } from '../../navigation';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-
-type NewsDetailsScreenRouteProp = RouteProp<RootStackParamList, 'NewsDetailsScreen'>;
-
-interface NewsDetailsProps {
-  route: NewsDetailsScreenRouteProp;
-}
-
-const NewsDetailsScreen = ({ route }: NewsDetailsProps) => {
+const NewsDetailsScreen = ({ route }: NativeStackScreenProps<RootStackParamList, 'NewsDetailsScreen'>) => {
   const colors: AppColors = useTheme().colors as AppColors;
   const styles = styling(colors)
   const { title, author, description, content, urlToImage, publishedAt } = route.params;
@@ -27,7 +21,7 @@ const NewsDetailsScreen = ({ route }: NewsDetailsProps) => {
         <Text style={styles.metaKey}>Updated </Text>
         <Text style={styles.metaValue}>{publishedAt}</Text>
       </View>
-      <Image source={{ uri: urlToImage }} style={styles.image} />
+      {urlToImage && <Image source={{ uri: urlToImage }} style={styles.image} />}
       <Text style={styles.description}>{description}</Text>
       <Text style={styles.content}>{content}</Text>
     </ScrollView>
@@ -50,8 +44,6 @@ const styling = (colors: AppColors) => StyleSheet.create({
   image: {
     width: '100%',
     height: 200,
-    // borderTopLeftRadius: 8,
-    // borderTopRightRadius: 8,
     marginBottom: 20
   },
   title: {
