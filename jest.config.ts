@@ -13,7 +13,8 @@ const config: Config.InitialOptions = {
   collectCoverageFrom: [
     'src/**/*.{js,jsx,ts,tsx}',
     '!**/node_modules/**',
-    '!**/i18n/**'
+    '!**/i18n/**',
+    '!**/theme/**'
   ],
 };
 
