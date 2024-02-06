@@ -15,9 +15,10 @@ interface CommonColors {
   activeColor: string;
   deactiveColor: string;
   boxActiveColor: string;
+  separator: string;
 }
 
-export interface AppColors {
+export interface AppColors extends CommonColors {
   primary: string;
   background: string;
   card: string;
@@ -30,12 +31,7 @@ export interface AppColors {
   lightTextColor: string;
   touchableColor: string;
   buttonColor: string;
-  commonWhite: string;
-  commonBlack: string;
-  activeColor: string;
-  deactiveColor: string;
-  boxActiveColor: string;
-  inputBackgroundColor: string
+  inputBackgroundColor: string;
 };
 
 interface AppTheme {
@@ -55,6 +51,7 @@ const commonColor: CommonColors = {
   activeColor: '#FFF',
   deactiveColor: '#09B6CC',
   boxActiveColor: '#46a2ae',
+  separator: "#CCCCCC"
 };
 
 const themes: Themes = {
@@ -67,7 +64,7 @@ const themes: Themes = {
       themeColor: '#FFFFFF',
       textColor: '#000000',
       icon: "#333",
-      lightTextColor: '#000000',
+      lightTextColor: '#555',
       touchableColor: '#DE5E69',
       inputBackgroundColor: "#EEE",
       buttonColor: 'gray',
