@@ -14,7 +14,9 @@ const config: Config.InitialOptions = {
     'src/**/*.{js,jsx,ts,tsx}',
     '!**/node_modules/**',
     '!**/i18n/**',
-    '!**/theme/**'
+    '!**/theme/**',
+    '!**/types.ts',
+    '!**/api/**'
   ],
 };
 
