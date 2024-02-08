@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { FlatList, View, Text, Image, RefreshControl, StyleSheet, TextInput, Alert, TouchableWithoutFeedback } from 'react-native';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
+import { FlatList, View, Text, Image, RefreshControl, StyleSheet, TextInput, TouchableWithoutFeedback, Linking } from 'react-native';
 import { getAllNews } from '../../api';
 import { useTheme } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next'
@@ -7,21 +7,38 @@ import { NewsItem } from '../../types';
 import { AppColors } from '../../theme/colors';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { RootStackParamList } from '../../navigation';
+import { getArticleIndexFromDeepList } from '../../utils';
 
-function NewsScreen({ navigation }: BottomTabScreenProps<RootStackParamList, 'NewsScreen'>) {
+function NewsScreen({ navigation, route }: BottomTabScreenProps<RootStackParamList, 'NewsScreen'>) {
   const colors: AppColors = useTheme().colors as AppColors;
   const styles = styling(colors)
   const { t, i18n } = useTranslation();
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
   const [refreshing, setRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-
+  const flatlistRef = useRef<FlatList>();
 
   useEffect(() => {
     fetchData(searchQuery);
   }, [searchQuery]);
 
 
+  useEffect(() => {
+    const url = route?.params?.url;
+    if (url) {
+      const index = getArticleIndexFromDeepList(url)
+      scrollToIndex(parseInt(index))
+    }
+  }, [route.params])
+
+
+  const scrollToIndex = async (index: number) => {
+    if (index) {
+      setTimeout(() => {
+        flatlistRef && flatlistRef.current && flatlistRef.current?.scrollToIndex({ animated: true, index: index || 0 })
+      }, 500)
+    }
+  }
 
   const fetchData = async (searcKeyword?: string): Promise<void> => {
     const search = searcKeyword !== "" ? searcKeyword : 'apple';
@@ -30,8 +47,16 @@ function NewsScreen({ navigation }: BottomTabScreenProps<RootStackParamList, 'Ne
       const news: NewsItem[] = await getAllNews(search, i18n.language);
       setNewsItems(news);
     } catch (error) {
+      console.log("Error fetching articles .. : ", error)
       //Alert.alert('Whoops', "Unable to fetch data please try again later")
     } finally {
+      const url = route?.params?.url || await Linking.getInitialURL();
+      if (url) {
+        if (url) {
+          const index = getArticleIndexFromDeepList(url)
+          scrollToIndex(parseInt(index))
+        }
+      }
       setRefreshing(false);
     }
   };
@@ -42,7 +67,7 @@ function NewsScreen({ navigation }: BottomTabScreenProps<RootStackParamList, 'Ne
   };
 
   const handleRefresh = useCallback(() => {
-    fetchData();
+    fetchData(searchQuery);
   }, []);
 
 
@@ -51,9 +76,6 @@ function NewsScreen({ navigation }: BottomTabScreenProps<RootStackParamList, 'Ne
       ...item
     });
   };
-
-
-
 
   return (
     <>
@@ -69,6 +91,7 @@ function NewsScreen({ navigation }: BottomTabScreenProps<RootStackParamList, 'Ne
       </View>
 
       <FlatList
+        ref={flatlistRef}
         data={newsItems}
         renderItem={({ item }) => (
           <TouchableWithoutFeedback onPress={() => handlePress(item)}>
@@ -80,6 +103,7 @@ function NewsScreen({ navigation }: BottomTabScreenProps<RootStackParamList, 'Ne
             </View>
           </TouchableWithoutFeedback>
         )}
+        onScrollToIndexFailed={() => { }}
         keyExtractor={(item, index) => item.url + index.toString()}
         ListEmptyComponent={() => <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: 20 }}>
           {!refreshing && <Text style={styles.emptyText}>There is now items to show</Text>}
