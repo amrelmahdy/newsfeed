@@ -1,5 +1,5 @@
 #import "AppDelegate.h"
-
+#import <React/RCTLinkingManager.h>
 #import <React/RCTBundleURLProvider.h>
 
 @implementation AppDelegate
@@ -28,4 +28,10 @@
 #endif
 }
 
+- (BOOL)application:(UIApplication *)application
+   openURL:(NSURL *)url
+   options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+  return [RCTLinkingManager application:application openURL:url options:options];
+}
 @end
