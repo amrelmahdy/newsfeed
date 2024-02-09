@@ -15,7 +15,6 @@ export const getAllNews = async (searcKeyword: string | undefined = 'apple', lan
         const response: AxiosResponse<NewsApiResponse> = await axios.get(
           `${BASE_URL}?apiKey=${API_KEY}&language=${language}&sortBy=publishedAt&q=${searcKeyword}&searchIn=title`  
         );
-        console.log("res", response.data.articles, language)
        return response.data.articles;
 };
 
