@@ -12,11 +12,10 @@ export interface NewsApiResponse {
 }
 
 export const getAllNews = async (searcKeyword: string | undefined = 'apple', language: string = 'en'): Promise<NewsItem[]> => {
-    const response: AxiosResponse<NewsApiResponse> = await axios.get(
-      `${BASE_URL}?apiKey=${API_KEY}&language=${language}&sortBy=publishedAt&q=${searcKeyword}&searchIn=title`  
-    //`${BASE_URL}?q=${searcKeyword}&sortBy=popularity&language=${language}&apiKey=${API_KEY}`
-    );
-    console.log("res", response.data.articles, language)
-    return response.data.articles;
+        const response: AxiosResponse<NewsApiResponse> = await axios.get(
+          `${BASE_URL}?apiKey=${API_KEY}&language=${language}&sortBy=publishedAt&q=${searcKeyword}&searchIn=title`  
+        );
+        console.log("res", response.data.articles, language)
+       return response.data.articles;
 };
 
