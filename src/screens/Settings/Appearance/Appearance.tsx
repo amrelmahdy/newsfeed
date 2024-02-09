@@ -12,6 +12,7 @@ const AppearanceScreen = () => {
   const { toggleTheme, useSystemTheme } = useContext(ThemeContext);
   const [initialValue, setInitialValue] = useState<string>('light');
 
+
   useEffect(() => {
     getTheme()
   }, [])
