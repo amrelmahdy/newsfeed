@@ -16,7 +16,7 @@ function NewsScreen({ navigation, route }: BottomTabScreenProps<RootStackParamLi
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
   const [refreshing, setRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const flatlistRef = useRef<FlatList>();
+  const flatlistRef = useRef<FlatList>(null);
 
   useEffect(() => {
     fetchData(searchQuery);
@@ -27,7 +27,7 @@ function NewsScreen({ navigation, route }: BottomTabScreenProps<RootStackParamLi
     const url = route?.params?.url;
     if (url) {
       const index = getArticleIndexFromDeepList(url)
-      scrollToIndex(parseInt(index))
+      scrollToIndex(index)
     }
   }, [route.params])
 
@@ -54,7 +54,7 @@ function NewsScreen({ navigation, route }: BottomTabScreenProps<RootStackParamLi
       if (url) {
         if (url) {
           const index = getArticleIndexFromDeepList(url)
-          scrollToIndex(parseInt(index))
+          scrollToIndex(index)
         }
       }
       setRefreshing(false);
@@ -79,14 +79,14 @@ function NewsScreen({ navigation, route }: BottomTabScreenProps<RootStackParamLi
 
   return (
     <>
-      <View style={styles.searchContainer}>
+      <View style={styles.searchContainer} testID='news_search_container'>
         <TextInput
           style={styles.searchInput}
           placeholder={t("search_input_placeholder")}
           placeholderTextColor={colors.lightTextColor}
           value={searchQuery}
           onChangeText={handleSearchChange}
-        // onChange={handleSearch}
+          testID='news_search_input'
         />
       </View>
 
@@ -105,8 +105,8 @@ function NewsScreen({ navigation, route }: BottomTabScreenProps<RootStackParamLi
         )}
         onScrollToIndexFailed={() => { }}
         keyExtractor={(item, index) => item.url + index.toString()}
-        ListEmptyComponent={() => <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: 20 }}>
-          {!refreshing && <Text style={styles.emptyText}>There is now items to show</Text>}
+        ListEmptyComponent={() => <View style={styles.listEmptyComponent}>
+          {!refreshing && <Text testID='empty_news_list_text' style={styles.emptyText}>{t("empty_news_list_text")}</Text>}
         </View>}
         refreshControl={
           <RefreshControl
@@ -177,4 +177,10 @@ const styling = (colors: AppColors) => StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
   },
+  listEmptyComponent: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 20
+  }
 });
