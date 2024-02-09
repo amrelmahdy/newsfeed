@@ -9,7 +9,6 @@ const NewsDetailsScreen = ({ route }: NativeStackScreenProps<RootStackParamList,
   const colors: AppColors = useTheme().colors as AppColors;
   const styles = styling(colors)
   const { title, author, description, content, urlToImage, publishedAt } = route.params;
-  console.log("urlToImage", urlToImage)
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>{title}</Text>
