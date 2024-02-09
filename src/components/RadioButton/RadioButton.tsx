@@ -35,6 +35,7 @@ const RadioButton = ({ data, defaultValue, onSelectButton = () => { } }: RadioBu
 							onPress={() => {
 								onSelectButton(res.key)
 								setValue(res.key);
+								console.log("onSelectButton", res.key)
 							}}
 							testID={`radio-button-${res.key}`}>
 							{value === res.key && <View style={styles.selectedRb} testID={`selected-radio-${res.key}`}
