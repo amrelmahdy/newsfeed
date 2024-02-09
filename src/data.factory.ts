@@ -5,22 +5,10 @@ export const LANGUAGES: Language[] = [
         text: 'English',
         key: 'en',
     },
-    // {
-    //     text: 'French',
-    //     key: 'fr',
-    // },
-    // {
-    //     text: 'Deutsch',
-    //     key: 'de',
-    // },
     {
         text: 'Italian',
         key: 'it',
-    },
-    // {
-    //     text: 'Spanish',
-    //     key: 'es',
-    // }
+    }
 ]
 
 
