@@ -24,7 +24,7 @@ const SettingsScreen = ({ navigation }: BottomTabScreenProps<RootStackParamList,
     <TouchableOpacity onPress={item.action} style={{ padding: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
       <View style={{ flexDirection: 'row' }}>
         <Icon name={item.icon} size={20} style={{ marginRight: 10 }} color={colors.icon} />
-        <Text style={{ color: colors.textColor }}>{item.name}</Text>
+        <Text testID={item.name} style={{ color: colors.textColor }}>{item.name}</Text>
       </View>
       <Text style={{ color: colors.textColor }}>{item.value} </Text>
     </TouchableOpacity>
