@@ -2,6 +2,7 @@ import React from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@react-navigation/native';
+import { AppColors } from '../../theme/colors';
 
 interface SearchInputProps {
     searchQuery: string;
@@ -12,7 +13,7 @@ interface SearchInputProps {
 
 const SearchInput = ({ searchQuery, setSearchQuery, handleSearch, placeholder }: SearchInputProps) => {
     const { t } = useTranslation();
-    const colors = useTheme().colors;
+    const colors: AppColors = useTheme().colors as AppColors;
     const styles = styling(colors)
 
     return (
@@ -32,7 +33,7 @@ const SearchInput = ({ searchQuery, setSearchQuery, handleSearch, placeholder }:
 
 export default SearchInput;
 
-const styling = (colors) => StyleSheet.create({
+const styling = (colors: AppColors) => StyleSheet.create({
     searchContainer: {
         padding: 10,
         backgroundColor: colors.card,
