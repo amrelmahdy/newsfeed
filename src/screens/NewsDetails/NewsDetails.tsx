@@ -21,7 +21,7 @@ const NewsDetailsScreen = ({ route }: NativeStackScreenProps<RootStackParamList,
         <Text style={styles.metaKey}>Updated </Text>
         <Text style={styles.metaValue}>{publishedAt}</Text>
       </View>
-      {urlToImage && <Image source={{ uri: urlToImage }} style={styles.image} />}
+      {urlToImage && <Image testID='news-image' source={{ uri: urlToImage }} style={styles.image} />}
       <Text style={styles.description}>{description}</Text>
       <Text style={styles.content}>{content}</Text>
     </ScrollView>
